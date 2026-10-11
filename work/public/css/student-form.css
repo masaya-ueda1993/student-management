@@ -1,0 +1,263 @@
+/* student-form.css - 生徒登録・編集画面のスタイル */
+
+.form-container {
+    background-color: white;
+    padding: 20px 30px;
+    border: 1px solid #ddd;
+    width: 800px;
+    margin: 0 auto;
+    max-height: calc(100vh - 150px);
+    overflow-y: auto;
+}
+
+/* ステップ表示 */
+.steps {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.step {
+    display: flex;
+    align-items: center;
+    color: #999;
+}
+
+.step.active {
+    color: #333;
+}
+
+.step-number {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: #ccc;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-right: 6px;
+    font-size: 13px;
+}
+
+.step.active .step-number {
+    background-color: #333;
+}
+
+.step-name {
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.step-line {
+    width: 50px;
+    height: 1px;
+    background-color: #ccc;
+    margin: 0 15px;
+}
+
+/* フォームステップ */
+.form-step {
+    display: none;
+}
+
+.form-step.active {
+    display: block;
+}
+
+.form-step h2 {
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+/* フォームレイアウト */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+/* フォームグループ */
+.form-group {
+    margin-bottom: 12px;
+}
+
+.form-group-label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 13px;
+    color: #34495e;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 2px solid #e0e4e8;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: all 0.2s;
+    background-color: white;
+}
+
+/* 写真アップロード */
+.photo-upload-container {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.photo-upload {
+    flex: 2;
+    border: 2px dashed #ccc;
+    padding: 36px;
+    text-align: center;
+    background-color: #fafafa;
+    border-radius: 4px;
+}
+
+.photo-upload p {
+    color: #666;
+    margin-bottom: 10px;
+    font-size: 11px;
+}
+
+/* 現在の写真プレビュー */
+.current-photo {
+    text-align: center;
+}
+
+.current-photo .photo-label {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 6px;
+}
+
+.photo-placeholder-current {
+    width: 120px;
+    height: 120px;
+    background-color: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6c757d;
+    border-radius: 4px;
+    border: 1px solid #dee2e6;
+    font-size: 11px;
+}
+
+/* フォームボタン */
+.form-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #ddd;
+}
+
+/* 「キャンセルして戻る」ボタン */
+.btn-cancel {
+    background-color: transparent;
+    color: #565e5e;
+    border: none;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btn-cancel:hover {
+    color: #34495e;
+    transform: none;
+    box-shadow: none;
+    font-weight: bold;
+}
+
+/* 確認画面 */
+#confirm-content {
+    background-color: #fafafa;
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 1px solid #e0e0e0;
+}
+
+.confirm-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 12px;
+}
+
+.confirm-item {
+    background-color: white;
+    padding: 8px;
+    border: 1px solid #e0e0e0;
+}
+
+.confirm-label {
+    font-size: 11px;
+    color: #666;
+    margin-bottom: 3px;
+}
+
+.confirm-value {
+    font-size: 14px;
+    font-weight: normal;
+    color: #333;
+}
+
+/* 確認画面の写真部分 */
+.confirm-photo-section {
+    margin-top: 12px;
+    background-color: white;
+    padding: 12px;
+    border: 1px solid #e0e0e0;
+    text-align: center;
+}
+
+.confirm-photo-label {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.confirm-photo-preview {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.confirm-photo-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.confirm-photo-placeholder {
+    background-color: #f8f9fa;
+    color: #6c757d;
+    font-size: 14px;
+    font-weight: 500;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* エラーメッセージ */
+.error-message {
+    color: #e74c3c;
+    font-size: 12px;
+    margin-top: 3px;
+    margin-bottom: 0;
+}
