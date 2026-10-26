@@ -367,6 +367,9 @@ class Student extends Utils
       // 成功：新しいファイル名を設定
       $stmt->bindValue(':photo_url', $result, \PDO::PARAM_STR);
     }
+
+    // アップロード結果を返す（null = 未選択、false = エラー、文字列 = 新しいファイル名）
+    return $result;
   }
 
   // 生徒登録
@@ -436,7 +439,7 @@ class Student extends Utils
     // 既存の写真URLを取得して、写真をアップロード処理とbindValue
     $studentData = $this->getById($id);
     $existingPhotoUrl = $studentData ? $studentData->photo_url : null;
-    $this->_bindPhotoValue($stmt, $existingPhotoUrl);
+    $newPhotoUrl = $this->_bindPhotoValue($stmt, $existingPhotoUrl);
 
     try {
       $stmt->execute();
@@ -446,6 +449,15 @@ class Student extends Utils
       echo '生徒の更新に失敗しました。';
       exit;
     }
+
+    // 新しい写真に差し替えた場合は、古い写真ファイルを削除する（更新が成功した後に行う）
+    if (is_string($newPhotoUrl) && !empty($existingPhotoUrl)) {
+      $oldPath = UPLOAD_DIR . basename($existingPhotoUrl);
+      if (is_file($oldPath)) {
+        unlink($oldPath);
+      }
+    }
+    // basename() = パスからファイル名だけを取り出す（../ などで別の場所を指されないようにする）
   }
 
   // 生徒削除（単体）

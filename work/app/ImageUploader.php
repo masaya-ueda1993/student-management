@@ -74,6 +74,10 @@ class ImageUploader
     switch ($_FILES['photo']['error']) {
       // エラーなし：正常にアップロードされた
       case UPLOAD_ERR_OK:
+        // ファイルサイズが上限（MAX_FILE_SIZE）を超えていないかチェック
+        if ($_FILES['photo']['size'] > MAX_FILE_SIZE) {
+          throw new \Exception('ファイルが大きすぎます。5MB以下のファイルを選択してください。');
+        }
         return true;
       
       // ファイルサイズが大きすぎる
