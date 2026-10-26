@@ -146,7 +146,7 @@ class Score
       }
 
       // データベース更新
-      $this->update($scoreId, $scoreValue);
+      $this->update($scoreId, $scoreValue, $studentId);
     }
 
     // ページ番号を取得
@@ -187,14 +187,15 @@ private function _deleteScore($studentId)
 
   // ===== データ操作メソッド =====
 
-  // 成績データを1件更新する関数
-  public function update($id, $score)
+  // 指定した成績IDと生徒IDの成績データを1件更新する関数
+  public function update($id, $score, $studentId)
   {
     $stmt = $this->_pdo->prepare(
-      "UPDATE scores SET score = :score WHERE id = :id"
+      "UPDATE scores SET score = :score WHERE id = :id AND student_id = :student_id"
     );
     $stmt->bindValue(':id', $id, \PDO::PARAM_INT);
     $stmt->bindValue(':score', $score, \PDO::PARAM_INT);
+    $stmt->bindValue(':student_id', $studentId, \PDO::PARAM_INT);
     $stmt->execute();
   }
 
