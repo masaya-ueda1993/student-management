@@ -471,11 +471,21 @@ class Student extends Utils
     }
 
     // 新しい写真に差し替えた場合は、古い写真ファイルを削除する（更新が成功した後に行う）
-    if (is_string($newPhotoUrl) && !empty($existingPhotoUrl)) {
-      $oldPath = UPLOAD_DIR . basename($existingPhotoUrl);
-      if (is_file($oldPath)) {
-        unlink($oldPath);
-      }
+    if (is_string($newPhotoUrl)) {
+      $this->_deletePhotoFile($existingPhotoUrl);
+    }
+  }
+
+  // 写真ファイルを削除（更新・削除で共通）
+  private function _deletePhotoFile($photoUrl)
+  {
+    if (empty($photoUrl)) {
+      return;
+    }
+
+    $path = UPLOAD_DIR . basename($photoUrl);
+    if (is_file($path)) {
+      unlink($path);
     }
     // basename() = パスからファイル名だけを取り出す（../ などで別の場所を指されないようにする）
   }
@@ -490,10 +500,18 @@ class Student extends Utils
       return;
     }
 
+    // 削除する前に写真のファイル名を取得しておく
+    $studentData = $this->getById($id);
+
     // 生徒データ削除（ON DELETE CASCADEにより成績データも自動削除）
     $stmt = $this->_pdo->prepare("DELETE FROM students WHERE id = :id");
     $stmt->bindValue(':id', $id, \PDO::PARAM_INT);
     $stmt->execute();
+
+    // 写真ファイルを削除する（DBの削除が成功した後に行う）
+    if ($studentData) {
+      $this->_deletePhotoFile($studentData->photo_url);
+    }
   }
 
   // 生徒削除（一括）
@@ -507,12 +525,25 @@ class Student extends Utils
 
     $placeholders = implode(',', array_fill(0, count($ids), '?'));
 
+    // 削除する前に写真のファイル名を取得しておく
+    $stmt = $this->_pdo->prepare("SELECT photo_url FROM students WHERE id IN ($placeholders)");
+    foreach ($ids as $index => $id) {
+      $stmt->bindValue($index + 1, $id, \PDO::PARAM_INT);
+    }
+    $stmt->execute();
+    $photoUrls = $stmt->fetchAll(\PDO::FETCH_COLUMN);
+
     // 生徒データ削除（ON DELETE CASCADEにより成績データも自動削除）
     $stmt = $this->_pdo->prepare("DELETE FROM students WHERE id IN ($placeholders)");
     foreach ($ids as $index => $id) {
       $stmt->bindValue($index + 1, $id, \PDO::PARAM_INT);
     }
     $stmt->execute();
+
+    // 写真ファイルを削除する（DBの削除が成功した後に行う）
+    foreach ($photoUrls as $photoUrl) {
+      $this->_deletePhotoFile($photoUrl);
+    }
   }
 }
 
