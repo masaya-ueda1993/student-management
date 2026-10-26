@@ -14,9 +14,18 @@ date_default_timezone_set('Asia/Tokyo');
 
 
 // エラー表示
-ini_set('display_errors', 1);
+// APP_ENV = 動作環境（未設定なら development として扱う）
+$appEnv = getenv('APP_ENV') ?: 'development';
+if ($appEnv === 'production') {
+  // 本番：エラーは画面に出さず、ログにだけ記録する
+  ini_set('display_errors', 0);
+  ini_set('log_errors', 1);
+} else {
+  ini_set('display_errors', 1);
+}
 // ini_set('設定名', '値')
 // display_errors = エラーをブラウザに表示するかどうか
+// log_errors = エラーをログに記録するかどうか
 
 
 // データベース接続

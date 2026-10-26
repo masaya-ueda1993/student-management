@@ -388,7 +388,9 @@ class Student extends Utils
       $stmt->execute();
       return $this->_pdo->lastInsertId();
     } catch (\PDOException $e) {
-      echo $e->getMessage();
+      // 詳細はログに記録し、画面には固定のメッセージだけを表示する
+      error_log($e->getMessage());
+      echo '生徒の登録に失敗しました。';
       exit;
     }
   }
@@ -439,7 +441,9 @@ class Student extends Utils
     try {
       $stmt->execute();
     } catch (\PDOException $e) {
-      echo $e->getMessage();
+      // 詳細はログに記録し、画面には固定のメッセージだけを表示する
+      error_log($e->getMessage());
+      echo '生徒の更新に失敗しました。';
       exit;
     }
   }

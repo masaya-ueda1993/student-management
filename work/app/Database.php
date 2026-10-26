@@ -26,7 +26,9 @@ class Database {
       return  self::$instance;
 
     } catch (\PDOException $e) {
-        echo $e->getMessage();
+        // 詳細はログに記録し、画面には固定のメッセージだけを表示する
+        error_log($e->getMessage());
+        echo 'データベースに接続できませんでした。';
         exit;
     }
   }
