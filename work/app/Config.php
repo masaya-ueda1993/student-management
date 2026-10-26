@@ -34,7 +34,7 @@ define('DB_USER', getenv('DB_USER'));
 define('DB_PASS', getenv('DB_PASS'));
 // getenv('名前') = 環境変数の値を取得する（docker-compose.yml から .env の値が渡される）
 
-define('SITE_URL', 'http://' .$_SERVER['HTTP_HOST']); // サイトURLの取得
+define('SITE_URL', getenv('APP_URL') ?: ''); // サイトURL（APP_URL が未設定なら空にして、相対パスでリダイレクトする）
 define('MAX_FILE_SIZE', 5 * 1024 * 1024); // ファイルサイズ 1MB
 define('UPLOAD_DIR', '/work/public/uploads/'); // ファイルパス
 define('STUDENTS_PER_PAGE', 20); // 生徒一覧：1ページ20人まで表示
