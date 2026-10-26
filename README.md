@@ -42,7 +42,8 @@
 1. `.env.example` をコピーして `.env` を作る（`cp .env.example .env`）
 2. `docker compose up -d` でコンテナを起動する
 3. phpMyAdmin（http://localhost:8080）を開き、`scoremanager` データベースに `scoremanager.sql` をインポートする
-4. http://localhost を開いてログインする
+4. サンプルデータの写真を `work/public/uploads/` にコピーする（`cp sample-photos/* work/public/uploads/`）
+5. http://localhost を開いてログインする
    - メールアドレス：teacher@example.com
    - パスワード：teacher1234（お試し用）
 
@@ -53,6 +54,7 @@
 ├── docker-compose.yml
 ├── mysql/             MySQL の設定
 ├── php/               PHP の設定
+├── sample-photos/     サンプルデータの生徒の写真（uploads にコピーして使う）
 ├── scoremanager.sql   テーブルとサンプルデータ（生徒150人分・架空の名前）
 └── work/
     ├── app/           クラス（生徒・成績・ユーザー・画像アップロードなど）

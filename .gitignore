@@ -1,1 +1,5 @@
 .env
+
+# アップロードされた写真（サンプルデータの写真は sample-photos/ に置く）
+work/public/uploads/*
+!work/public/uploads/.gitkeep
