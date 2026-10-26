@@ -39,9 +39,10 @@
 
 ## 動かし方
 
-1. `docker compose up -d` でコンテナを起動する
-2. phpMyAdmin（http://localhost:8080）を開き、`scoremanager` データベースに `scoremanager.sql` をインポートする
-3. http://localhost を開いてログインする
+1. `.env.example` をコピーして `.env` を作る（`cp .env.example .env`）
+2. `docker compose up -d` でコンテナを起動する
+3. phpMyAdmin（http://localhost:8080）を開き、`scoremanager` データベースに `scoremanager.sql` をインポートする
+4. http://localhost を開いてログインする
    - メールアドレス：teacher@example.com
    - パスワード：teacher1234（お試し用）
 

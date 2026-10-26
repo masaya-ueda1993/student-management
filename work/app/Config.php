@@ -28,10 +28,11 @@ if ($appEnv === 'production') {
 // log_errors = エラーをログに記録するかどうか
 
 
-// データベース接続
-define('DSN', 'mysql:host=db;dbname=scoremanager;charset=utf8mb4');
-define('DB_USER', 'smuser');
-define('DB_PASS', 'smpass');
+// データベース接続（接続情報は環境変数から読み込む）
+define('DSN', 'mysql:host=' . getenv('DB_HOST') . ';dbname=' . getenv('DB_NAME') . ';charset=utf8mb4');
+define('DB_USER', getenv('DB_USER'));
+define('DB_PASS', getenv('DB_PASS'));
+// getenv('名前') = 環境変数の値を取得する（docker-compose.yml から .env の値が渡される）
 
 define('SITE_URL', 'http://' .$_SERVER['HTTP_HOST']); // サイトURLの取得
 define('MAX_FILE_SIZE', 5 * 1024 * 1024); // ファイルサイズ 1MB

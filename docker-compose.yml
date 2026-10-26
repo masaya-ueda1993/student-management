@@ -5,16 +5,23 @@ services:
     build: ./mysql
     environment:
       TZ: "Asia/Tokyo"
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: scoremanager
-      MYSQL_USER: smuser
-      MYSQL_PASSWORD: smpass
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASS}
     volumes:
     - db-data:/var/lib/mysql
   php:
     build: ./php
     depends_on:
     - db
+    environment:
+      DB_HOST: db
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASS: ${DB_PASS}
+      APP_ENV: ${APP_ENV:-development}
+      APP_URL: ${APP_URL:-}
     ports:
     - 80:8000
     volumes:
