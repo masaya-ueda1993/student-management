@@ -13,7 +13,8 @@ class Token {
 
   // トークンチェック（フォームとセッション）
   public static function validate() {
-    if (empty($_SESSION['token']) || $_SESSION['token'] !== filter_input(INPUT_POST, 'token')) { 
+    // hash_equals() = 2つの文字列を、比較にかかる時間から中身を推測されない方法で比べる
+    if (empty($_SESSION['token']) || !hash_equals($_SESSION['token'], (string)filter_input(INPUT_POST, 'token'))) { 
       exit('Invalid post request');
     }
   }

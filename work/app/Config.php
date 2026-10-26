@@ -1,6 +1,14 @@
 <?php
 // 定数や設定をまとめて管理
 
+// セッションのCookie設定（session_start() より前に設定する）
+ini_set('session.use_strict_mode', 1); // サーバーが発行していないセッションIDを受け付けない
+ini_set('session.cookie_httponly', 1); // JavaScript から Cookie を読めないようにする
+ini_set('session.cookie_samesite', 'Lax'); // 他のサイトからの POST に Cookie を付けない
+if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') {
+  ini_set('session.cookie_secure', 1); // https のときだけ Cookie を送る
+}
+
 // セッション開始
 if (session_status() === PHP_SESSION_NONE) {
   session_start();

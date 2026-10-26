@@ -108,7 +108,12 @@ class User extends Utils {
 
     // 認証成功したら、セッション値を格納
     session_regenerate_id(true); // セッションIDを新しく生成し直す。true = 古いセッションを削除
-    $_SESSION['me'] = $user;
+    // パスワードのハッシュはセッションに入れず、必要な項目だけを格納する
+    $_SESSION['me'] = (object)[
+      'id' => $user->id,
+      'last_name' => $user->last_name,
+      'first_name' => $user->first_name,
+    ];
   }
 
   // 現在ログインしているユーザー情報を取得する関数
