@@ -13,7 +13,7 @@ class User extends Utils {
     $this->_pdo = $pdo;
 
     // CSRFトークンを生成
-    token::create();
+    Token::create();
 
     // エラー格納用オブジェクトを初期化
     $this->_errors = new \stdClass();
@@ -29,7 +29,7 @@ class User extends Utils {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       
       // CSRFトークンをチェック
-      token::validate();
+      Token::validate();
 
       // アクションを取得
       $action = filter_input(INPUT_GET, 'action');
