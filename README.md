@@ -22,8 +22,8 @@
 
 | 分類 | 技術 |
 |---|---|
-| 言語 | PHP 7.3、JavaScript、HTML／CSS |
-| データベース | MySQL 8.0 |
+| 言語 | PHP 8.4、JavaScript、HTML／CSS |
+| データベース | MySQL 8.4 |
 | 環境 | Docker（docker compose）、phpMyAdmin |
 | その他 | Git／GitHub |
 
