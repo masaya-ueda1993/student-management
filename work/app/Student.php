@@ -131,6 +131,11 @@ class Student extends Utils
           // 生徒登録
           $studentId = $this->_add();
 
+          // 写真のエラーチェック（写真は保存時にチェックするため、ここで改めて確認する）
+          if ($this->hasError()) {
+            return;
+          }
+
           // 成績データを自動作成（全テスト×全科目を0点で登録）
           $this->_createInitialScores($studentId);
 
@@ -149,6 +154,11 @@ class Student extends Utils
 
           // 生徒更新
           $this->_update();
+
+          // 写真のエラーチェック（写真は保存時にチェックするため、ここで改めて確認する）
+          if ($this->hasError()) {
+            return;
+          }
 
           // 詳細画面にリダイレクト
           $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
@@ -386,6 +396,11 @@ class Student extends Utils
     // 写真のアップロード処理
     $this->_bindPhotoValue($stmt);
 
+    // 写真にエラーがあれば登録しない
+    if ($this->hasError()) {
+      return;
+    }
+
     // 実行とエラーハンドリング
     try {
       $stmt->execute();
@@ -440,6 +455,11 @@ class Student extends Utils
     $studentData = $this->getById($id);
     $existingPhotoUrl = $studentData ? $studentData->photo_url : null;
     $newPhotoUrl = $this->_bindPhotoValue($stmt, $existingPhotoUrl);
+
+    // 写真にエラーがあれば更新しない
+    if ($this->hasError()) {
+      return;
+    }
 
     try {
       $stmt->execute();
